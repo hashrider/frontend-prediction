@@ -304,6 +304,124 @@ class PredictionMarketAPI extends PlayerConvention {
     const command = createCommand(nonce, BigInt(CommandType.CLAIM), [BigInt(marketId)]);
     return await this.sendTransactionWithCommand(command);
   }
+
+  // === Player Action Event Querying Methods ===
+  
+  // Get player installation events
+  async getPlayerInstallEvents(playerId1?: string, playerId2?: string, count: number = 20): Promise<any[]> {
+    try {
+      const path = playerId1 && playerId2 
+        ? `events/player/install/${playerId1}/${playerId2}/${count}`
+        : `events/player/install/${count}`;
+      const response: any = await this.rpc.queryData(path);
+      if (!response.success) {
+        throw new Error(response.message || 'Failed to get player install events');
+      }
+      return response.data;
+    } catch (error) {
+      console.error('Failed to get player install events:', error);
+      throw error;
+    }
+  }
+
+  // Get withdraw events
+  async getWithdrawEvents(playerId1?: string, playerId2?: string, count: number = 20): Promise<any[]> {
+    try {
+      const path = playerId1 && playerId2 
+        ? `events/player/withdraw/${playerId1}/${playerId2}/${count}`
+        : `events/player/withdraw/${count}`;
+      const response: any = await this.rpc.queryData(path);
+      if (!response.success) {
+        throw new Error(response.message || 'Failed to get withdraw events');
+      }
+      return response.data;
+    } catch (error) {
+      console.error('Failed to get withdraw events:', error);
+      throw error;
+    }
+  }
+
+  // Get deposit events
+  async getDepositEvents(playerId1?: string, playerId2?: string, count: number = 20): Promise<any[]> {
+    try {
+      const path = playerId1 && playerId2 
+        ? `events/player/deposit/${playerId1}/${playerId2}/${count}`
+        : `events/player/deposit/${count}`;
+      const response: any = await this.rpc.queryData(path);
+      if (!response.success) {
+        throw new Error(response.message || 'Failed to get deposit events');
+      }
+      return response.data;
+    } catch (error) {
+      console.error('Failed to get deposit events:', error);
+      throw error;
+    }
+  }
+
+  // Get claim events
+  async getClaimEvents(playerId1?: string, playerId2?: string, marketId?: string, count: number = 20): Promise<any[]> {
+    try {
+      let path: string;
+      if (playerId1 && playerId2 && marketId) {
+        path = `events/player/claim/${playerId1}/${playerId2}/${marketId}/${count}`;
+      } else if (playerId1 && playerId2) {
+        path = `events/player/claim/${playerId1}/${playerId2}/${count}`;
+      } else if (marketId) {
+        path = `events/player/claim/market/${marketId}/${count}`;
+      } else {
+        path = `events/player/claim/${count}`;
+      }
+      const response: any = await this.rpc.queryData(path);
+      if (!response.success) {
+        throw new Error(response.message || 'Failed to get claim events');
+      }
+      return response.data;
+    } catch (error) {
+      console.error('Failed to get claim events:', error);
+      throw error;
+    }
+  }
+
+  // Get withdraw fees events
+  async getWithdrawFeesEvents(playerId1?: string, playerId2?: string, marketId?: string, count: number = 20): Promise<any[]> {
+    try {
+      let path: string;
+      if (playerId1 && playerId2 && marketId) {
+        path = `events/player/withdraw-fees/${playerId1}/${playerId2}/${marketId}/${count}`;
+      } else if (playerId1 && playerId2) {
+        path = `events/player/withdraw-fees/${playerId1}/${playerId2}/${count}`;
+      } else if (marketId) {
+        path = `events/player/withdraw-fees/market/${marketId}/${count}`;
+      } else {
+        path = `events/player/withdraw-fees/${count}`;
+      }
+      const response: any = await this.rpc.queryData(path);
+      if (!response.success) {
+        throw new Error(response.message || 'Failed to get withdraw fees events');
+      }
+      return response.data;
+    } catch (error) {
+      console.error('Failed to get withdraw fees events:', error);
+      throw error;
+    }
+  }
+
+  // Get all player action events (install, withdraw, deposit, claim, withdraw_fees)
+  async getPlayerActionEvents(playerId1?: string, playerId2?: string, count: number = 20): Promise<any[]> {
+    try {
+      const path = playerId1 && playerId2 
+        ? `events/player/actions/${playerId1}/${playerId2}/${count}`
+        : `events/player/actions/${count}`;
+      const response: any = await this.rpc.queryData(path);
+      if (!response.success) {
+        throw new Error(response.message || 'Failed to get player action events');
+      }
+      return response.data;
+    } catch (error) {
+      console.error('Failed to get player action events:', error);
+      throw error;
+    }
+  }
 }
 
 export default PredictionMarketAPI; 

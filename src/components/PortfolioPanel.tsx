@@ -52,8 +52,8 @@ const PortfolioPanel: React.FC<PortfolioPanelProps> = ({
   const totalPortfolioValue = balance + yesValue + noValue;
 
   // Calculate potential winnings if market resolves
-  const potentialYesWinnings = market.resolved && market.outcome ? yesShares : 0;
-  const potentialNoWinnings = market.resolved && !market.outcome ? noShares : 0;
+  const potentialYesWinnings = market.resolved && market.outcome ? yesValue : 0;
+  const potentialNoWinnings = market.resolved && !market.outcome ? noValue : 0;
   const totalPotentialWinnings = potentialYesWinnings + potentialNoWinnings;
 
   // Position breakdown

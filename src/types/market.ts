@@ -6,6 +6,8 @@ export interface MarketData {
   // LMSR state = outstanding shares
   yes_liquidity: string; // totalYesShares
   no_liquidity: string;  // totalNoShares
+  initial_yes_liquidity: string; // initial YES liquidity 
+  initial_no_liquidity: string;  // initial NO liquidity
   // LMSR liquidity parameter b (market depth)
   b?: string;
   // Collateral in the LMSR market

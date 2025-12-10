@@ -687,6 +687,8 @@ export const MarketProvider: React.FC<MarketProviderProps> = ({ children }) => {
           description: sanityResponse?.description,
           yes_liquidity: marketFromResponse.totalYesShares?.toString() || marketFromResponse.yesLiquidity?.toString() || "0",
           no_liquidity: marketFromResponse.totalNoShares?.toString() || marketFromResponse.noLiquidity?.toString() || "0", 
+          initial_yes_liquidity: marketFromResponse.initialYesLiquidity?.toString() || "0",
+          initial_no_liquidity: marketFromResponse.initialNoLiquidity?.toString() || "0", 
           b: marketFromResponse.b?.toString() || "1000000", // Default b = 1,000,000
           poolBalance: marketFromResponse.poolBalance?.toString() || "0",
           total_volume: marketFromResponse.totalVolume?.toString() || "0",
